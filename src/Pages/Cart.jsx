@@ -2,11 +2,13 @@ import { useContext } from "react";
 import { CartContext } from "../context/CardContext";
 
 function Cart() {
-  const { cart } = useContext(CartContext);
+  const { cart, clearCart } = useContext(CartContext);
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2 style={{ textAlign: "center" }}>Cart Items</h2>
+      <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+        <h2 style={{ textAlign: "left", margin: 0 }}>Cart Items</h2>
+      </div>
 
       {cart.length === 0 ? (
         <p style={{ textAlign: "center" }}>No items in the cart</p>
@@ -37,6 +39,22 @@ function Cart() {
           ))}
         </div>
       )}
+      
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+        <button
+          style={{ padding: "12px 20px", cursor: cart.length === 0 ? "not-allowed" : "pointer", backgroundColor: cart.length === 0 ? "#ccc" : "#4CAF50", color: "white", border: "none", borderRadius: "6px" }}
+          onClick={() => {
+            if (cart.length === 0) return;
+            if (window.confirm("Proceed to pay and clear cart?")) {
+              clearCart();
+              window.alert("Payment successful! Cart cleared.");
+            }
+          }}
+          disabled={cart.length === 0}
+        >
+          Pay
+        </button>
+      </div>
     </div>
   );
 }

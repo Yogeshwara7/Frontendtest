@@ -8,8 +8,12 @@ export function CartProvider({children}){
         setCart([...cart, item]);
     }
 
+    function clearCart(){
+        setCart([]);
+    }
+
     return(
-        <CartContext.Provider value={{cart,addToCart}}>
+        <CartContext.Provider value={{cart,addToCart,clearCart}}>
             {children}
         </CartContext.Provider>
     );
