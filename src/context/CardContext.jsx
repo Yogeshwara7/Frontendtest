@@ -42,12 +42,6 @@ export function CartProvider({ children }) {
         setProducts((prev) => prev.filter((p) => !idsNum.includes(Number(p.id))));
     }
 
-    function resetProducts() {
-        setProducts(initialProducts);
-        try {
-            localStorage.removeItem("products");
-        } catch (e) {}
-    }
         useEffect(() => {
             try {
                 localStorage.setItem("products", JSON.stringify(products));
@@ -63,7 +57,7 @@ export function CartProvider({ children }) {
         }, [cart]);
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, clearCart, products, removeProductsByIds, resetProducts }}>
+        <CartContext.Provider value={{ cart, addToCart, clearCart, products, removeProductsByIds }}>
             {children}
         </CartContext.Provider>
     );

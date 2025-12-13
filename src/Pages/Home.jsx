@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { CartContext } from "../context/CardContext";
 
 function Home() {
-    const { products } = useContext(CartContext);
+    const { products, cart } = useContext(CartContext);
 
     return (
         <div style={{ padding: "20px", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
@@ -18,7 +18,9 @@ function Home() {
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
                 <Link to="/Cart" style={{ textDecoration: "none" }}>
-                    <button style={{ fontSize: "16px", padding: "10px 20px", cursor: "pointer", color: "white", backgroundColor: "grey", border: "none", borderRadius: "5px" }}>Go to Cart</button>
+                    <button style={{ fontSize: "16px", padding: "10px 20px", cursor: "pointer", color: "white", backgroundColor: "grey", border: "none", borderRadius: "5px" }}>
+                        Go to Cart ({cart.length})
+                    </button>
                 </Link>
             </div>
         </div>
