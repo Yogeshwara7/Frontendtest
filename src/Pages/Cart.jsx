@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CardContext";
 
 function Cart() {
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, clearCart, removeProductsByIds, resetProducts } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -51,12 +51,31 @@ function Cart() {
         </button>
 
         <button
+          style={{ padding: "12px 20px", cursor: "pointer", backgroundColor: "#0275d8", color: "white", border: "none", borderRadius: "6px" }}
+          onClick={() => {
+            if (window.confirm("Reset products to initial state? This restores any removed items.")) {
+              resetProducts();
+              window.alert("Products reset to initial state.");
+            }
+          }}
+        >
+          Reset
+        </button>
+
+        <button
           style={{ padding: "12px 20px", cursor: cart.length === 0 ? "not-allowed" : "pointer", backgroundColor: cart.length === 0 ? "#ccc" : "#4CAF50", color: "white", border: "none", borderRadius: "6px" }}
           onClick={() => {
             if (cart.length === 0) return;
-            if (window.confirm("Proceed to pay and clear cart?")) {
+            if (window.confirm("Proceed to pay and remove these items from the site?")) {
+              console.log("Cart before pay:", cart);
+              const idsToRemove = cart.map((it) => it.id).filter(Boolean).map((id) => Number(id));
+              console.log("IDs to remove:", idsToRemove);
+              if (idsToRemove.length > 0) {
+                removeProductsByIds(idsToRemove);
+                console.log("Products after removal will be updated in context and localStorage");
+              }
               clearCart();
-              window.alert("Payment successful! Cart cleared.");
+              window.alert("Payment successful! Items removed from site and cart cleared.");
             }
           }}
           disabled={cart.length === 0}
