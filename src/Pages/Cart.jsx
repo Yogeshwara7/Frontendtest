@@ -1,8 +1,10 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CardContext";
 
 function Cart() {
   const { cart, clearCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   return (
     <div style={{ padding: "20px" }}>
@@ -40,7 +42,14 @@ function Cart() {
         </div>
       )}
       
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: "12px", marginTop: "24px" }}>
+        <button
+          style={{ padding: "12px 20px", cursor: "pointer", backgroundColor: "#6c757d", color: "white", border: "none", borderRadius: "6px" }}
+          onClick={() => navigate(-1)}
+        >
+          Go Back
+        </button>
+
         <button
           style={{ padding: "12px 20px", cursor: cart.length === 0 ? "not-allowed" : "pointer", backgroundColor: cart.length === 0 ? "#ccc" : "#4CAF50", color: "white", border: "none", borderRadius: "6px" }}
           onClick={() => {
